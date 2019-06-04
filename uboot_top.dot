@@ -1,0 +1,120 @@
+digraph G{
+    size = "25,10";
+    ratio = fill;
+    node[shape = record ;fontsize = 12];
+        start_code[style = filled,color = red,label = "{arch/arm/cpu/arm920t/start.S|
+                            start_code()}"];
+        cpu_init_crit [style = filled,color = red,color = red,
+                      label = "{arch/arm/cpu/arm920t/start.S|
+                            cpu_init_crit()}"];
+        nand_init_ll[style = filled,color = yellow,
+            label = "{board/samsung/smdk2440/init.c | 
+                                nand_init_ll()}"];
+        copy_code_to_sdram[style = filled,color = yellow,
+            label = "{board/samsung/smdk2440/init.c |
+                                        copy_code_to_sdram()}"];
+        clear_bss[style = filled,color = yellow,
+            label = "{board/samsung/smdk2440/init.c|
+                            clear_bss()}"];
+        board_init_f [style = filled,color = greenyellow,
+                     label = "{arch/arm/lib/board.c|
+                                board_init_f()}"];
+        board_init_r[style = filled,color = greenyellow,
+            label = "{arch/arm/lib/board.c|
+                                board_init_r()}"];
+//        init_baudrate[label = "{arch/arm/lib/board.c|
+//                                init_baudrate()}"] ;
+//        display_banner[label = "{arch/arm/lib/board.c|
+//                                    display_banner()}"];
+        /*初始化队列*/
+
+        bootstage_mark_name[label = "{common/bootstage.c|
+                                bootstage_mark_name()}"];
+        init_sequence[style = filled,color = gray,fontcolor = white ,label = "{struct init_sequence|
+                                <timer_init>arch/arm/cpu/arm920t/s3c24x0/timer.c\ntimer_init()|
+                                <env_init>common/env_nand.c\nenv_init()|
+                                <init_baudrate>arch/arm/lib/board.c\ninit_baudrate()|
+                                <serial_init>drivers/serial/serial_s3c24x0.c\nserial_init()|
+                                <console_init_f>common/console.c\nconsole_init_f|
+                                <display_banner>arch/arm/lib/board.c\ndisplay_banner()|
+                                <dram_init>board/samsung/smdk2440/smdk2440.c\ndram_init()
+                                }"];
+        dram_init_banksize[style = filled,color = greenyellow,
+            label="{arch/arm/lib/board.c|
+                            dram_init_banksize()}"];
+        display_dram_config[style = filled,color = greenyellow,
+            label="{arch/arm/lib/board.c|
+                            display_dram_config}"];
+//        timer_init[label = "{arch/arm/cpu/arm920t/s3c24x0/timer.c|
+//                            timer_init}"];
+//        env_init[label = "{common/env_nand.c|
+//                            env_init()}"];
+//        serial_init[label="{drivers/serial/serial_s3c24x0.c|
+//                            serial_init()}"];
+//        console_init_f[label="{common/console.c|
+//                            console_init_f}"];
+//        dram_init[label="{board/samsung/smdk2440/smdk2440.c|
+//                           dram_init()}"];
+        enable_caches[label="{arch/arm/lib/cache.c|
+                        enable_caches()}"];
+        board_init[label="{board/samsung/smdk2440/smdk2440.c|
+                            board_init()}"];
+        mem_malloc_init[label = "{common/dlmalloc.c|
+                                    mem_malloc_init()}"];
+        flash_init[label = "{drivers/mtd/cfi_flash.c|
+                                flash_init()}"];
+        nand_init[label = "{drivers/mtd/nand/nand.c|
+                            nand_init()}"];
+        env_relocate[label="{common/env_common.c|
+                                env_relocate()}"]
+        stdio_init[label = "{common/stdio.c|
+                                stdio_init()}"];
+        jumptable_init[label = "{common/exports.c|
+                                jumptable_init()}"];
+        console_init_r[label="{common/console.c|
+                        console_init_r()}"];
+        interrupt_init[label="{arch/arm/lib/interrupts.c|
+                                interrupt_init()}"];
+        enable_interrupts[label="{arch/arm/lib/interrupts.c|
+                                enable_interrupts()}"];
+        main[style = filled,color = pink ,label="{common/main.c|
+                                run_command()|
+                                main_loop()}"];
+
+        start_code -> cpu_init_crit;
+        start_code -> nand_init_ll;
+        start_code -> copy_code_to_sdram ;
+        start_code -> clear_bss; 
+
+        start_code -> board_init_f; 
+        start_code -> board_init_r; 
+
+        board_init_f -> bootstage_mark_name; 
+        board_init_f->init_sequence;
+        board_init_f -> dram_init_banksize; 
+        board_init_f -> display_dram_config; 
+//        board_init_f -> init_sequence:timer_init;
+//        board_init_f -> init_sequence:env_init;
+//        board_init_f -> init_sequence:init_baudrate; 
+//        board_init_f -> init_sequence:serial_init; 
+//        board_init_f -> init_sequence:console_init_f; 
+//        board_init_f -> init_sequence:display_banner; 
+//        board_init_f -> init_sequence:dram_init; 
+
+        board_init_r -> bootstage_mark_name; 
+        board_init_r -> enable_caches;    
+        board_init_r -> board_init;     
+        board_init_r -> mem_malloc_init; 
+        board_init_r -> flash_init;     
+        board_init_r -> nand_init;	 
+        board_init_r -> env_relocate;   
+        board_init_r -> stdio_init;	 
+        board_init_r -> jumptable_init;
+        board_init_r -> console_init_r;
+        board_init_r -> interrupt_init;
+        board_init_r -> enable_interrupts;
+        board_init_r -> main;
+}
+
+
+

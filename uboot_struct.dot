@@ -1,0 +1,42 @@
+digraph G{
+    rankdir = "LR"
+    node[shape= record];
+gd_t[style = filled ,label = "
+    global_data|
+    <bd_t>bd_t *bd|
+    ulong flags|
+    ulong baudrate|
+    ulong have_console  \n  /* serial_init() was called */|
+    ulong env_addr	  \n  /* Address  of Environment struct */|
+    ulong env_valid	  \n  /* Checksum of Environment valid? */|
+    ulong fb_base	      \n  /* base address of frame buffer */|
+    ulong relocaddr	  \n  /* Start address of U-Boot in RAM */|
+    phys_size_t ram_size	      \n  /* RAM size */|
+    ulong mon_len       \n  /* monitor len */|
+    ulong irq_sp		  \n  /* irq stack pointer */|
+    ulong start_addr_sp \n  /* start_addr_stackpointer */|
+    ulong reloc_off|
+    ulong tlb_addr|
+    const void	*fdt_blob	      \n  /* Our device tree, NULL if none */|
+    void **jt		      \n  /* jump table */|
+    char env_buf[32]	      \n  /* buffer for getenv() before reloc. */|
+"]
+
+bd_t[style = filled,label="
+    bd_info|
+    int bi_baudrate;	          \n  /* serial console baudrate */|
+    ulong bi_ip_addr;	          \n  /* IP Address */|
+    ulong    bi_arch_number;	      \n  /* unique id for this board */|
+    ulong    bi_boot_params;	      \n  /* where this board expects params */|
+	ulong    bi_arm_freq;          \n  /* arm frequency */|
+	ulong    bi_dsp_freq;          \n  /* dsp core frequency */|
+	ulong    bi_ddr_freq;          \n  /* ddr frequency */|
+   <bi_dram>struct bi_dram[CONFIG_NR_DRAM_BANKS] \n  /* RAM configuration */; 
+"]
+bi_dram[style = filled,label="bi_dram|
+            ulong start| 
+            ulong size
+"]
+gd_t:bd_t->bd_t[color = red]
+bd_t:bi_dram->bi_dram[color = blue]
+}
